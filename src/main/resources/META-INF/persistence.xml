@@ -10,6 +10,17 @@
     <class>com.glutenfreesoftware.shareableshoppinglist.domain.Sharedrooms</class>
     <class>com.glutenfreesoftware.shareableshoppinglist.domain.Stuff</class>
     <class>com.glutenfreesoftware.shareableshoppinglist.domain.Users</class>
+    
+    <!--<jta-data-source>java:app/jdbc/glutenfreesoftware_db</jta-data-source>
+    <class>com.glutenfreesoftware.shareableshoppinglist.dbtest.Friends</class>
+    <class>com.glutenfreesoftware.shareableshoppinglist.dbtest.Listitems</class>
+    <class>com.glutenfreesoftware.shareableshoppinglist.dbtest.Lists</class>
+    <class>com.glutenfreesoftware.shareableshoppinglist.dbtest.Rooms</class>
+    <class>com.glutenfreesoftware.shareableshoppinglist.dbtest.Sharedlists</class>
+    <class>com.glutenfreesoftware.shareableshoppinglist.dbtest.Sharedrooms</class>
+    <class>com.glutenfreesoftware.shareableshoppinglist.dbtest.Stuff</class>
+    <class>com.glutenfreesoftware.shareableshoppinglist.dbtest.Users</class>-->
+    
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <validation-mode>NONE</validation-mode>
     <properties/>
