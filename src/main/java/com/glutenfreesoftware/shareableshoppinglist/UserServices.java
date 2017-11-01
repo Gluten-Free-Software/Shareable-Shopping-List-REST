@@ -1,8 +1,8 @@
 package com.glutenfreesoftware.shareableshoppinglist;
 
 import com.glutenfreesoftware.shareableshoppinglist.domain.Friends;
-import com.glutenfreesoftware.shareableshoppinglist.domain.Lists;
-import com.glutenfreesoftware.shareableshoppinglist.domain.Users;
+import com.glutenfreesoftware.shareableshoppinglist.dbtest.Lists;
+import com.glutenfreesoftware.shareableshoppinglist.dbtest.Users;
 import java.util.Collections;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -110,7 +110,7 @@ public class UserServices {
         return Response.noContent().build();     
     }
     
-    @GET
+    /*@GET
     @Path("getFriends")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Friends> getFriends(@QueryParam("Username") String User1){
@@ -174,5 +174,5 @@ public class UserServices {
                 .setParameter("user2", user2)
                 .executeUpdate();
         */ 
-    }
+    //}
 }
