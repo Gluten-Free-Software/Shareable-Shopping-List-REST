@@ -69,6 +69,7 @@ public class Users implements Serializable {
     @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "Password")
+    @XmlTransient
     private String password;
     
     @Basic(optional = false)

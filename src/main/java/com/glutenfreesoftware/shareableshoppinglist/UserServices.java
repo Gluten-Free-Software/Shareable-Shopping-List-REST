@@ -45,6 +45,18 @@ public class UserServices {
         return result != null ? result : Collections.EMPTY_LIST;
     } 
     
+    @GET
+    @Path("getUser")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Users> getUser(@QueryParam("username") String username, @QueryParam("password") String password){
+        List<Users> result = null; 
+        result = em.createQuery("SELECT u FROM Users u WHERE u.username = :username AND u.password = :password", Users.class)
+                .setParameter("username", username)
+                .setParameter("password", password)
+                .getResultList();
+        return result != null ? result : Collections.EMPTY_LIST;
+    }
+    
     /*
         Ikke bruk denne
     */
