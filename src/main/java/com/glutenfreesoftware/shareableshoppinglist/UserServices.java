@@ -19,6 +19,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
+import jdk.nashorn.internal.parser.JSONParser;
+
 
 /**
  *
@@ -42,27 +45,57 @@ public class UserServices {
         return result != null ? result : Collections.EMPTY_LIST;
     } 
     
+    /*
+        Ikke bruk denne
+    */
     @POST
-    @Path("regsterUser")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response addUser(@QueryParam("Username") String Username,
-                            @QueryParam("Email")    String Email,
-                            @QueryParam("Password") String Password){
-        if (Username != null && Email != null && Password != null) {
-            Users u = new Users();
-            em.persist(u);
-            u.setUsername(Username);
-            u.setEmail(Email);
-            u.setPassword(Password);
+    @Path("add")
+    public Response addUser2(@QueryParam("username") String username, @QueryParam("email") String email, @QueryParam("password") String password) {
+        
+        System.out.println(username + "*************************************************************************");
+        System.out.println(email + "*************************************************************************");
+        System.out.println(password + "*************************************************************************");
+        if (username != null && email != null && password != null) {
+            System.out.println("Hei *************************************************************************");
+            List<Users> result = null;
+            result = em.createQuery("SELECT u FROM Users u WHERE u.username = :username", Users.class)
+                .setParameter("username", username)
+                .getResultList();
+            if(result.size() == 0){
+                System.out.println("0 *************************************************************************");
+                Users u = new Users();
+                em.persist(u);
+                u.setUsername(username);
+                u.setEmail(email);
+                u.setPassword(password); 
+                System.out.println("Lagt til databasen? *************************************************************************");
+            }          
+        } 
+        return null;
+    }
+    
+    @POST
+    @Path("registerUser")
+    public Response addUser(@QueryParam("username") String username,
+                            @QueryParam("email")    String email,
+                            @QueryParam("password") String password){
+        if (username != null && email != null && password != null) {
+            List<Users> result = null;
+            result = em.createQuery("SELECT u FROM Users u WHERE u.username = :username", Users.class)
+                .setParameter("username", username)
+                .getResultList();
+            if(result.size() == 0){
+                Users u = new Users();
+                em.persist(u);
+                u.setUsername(username);
+                u.setEmail(email);
+                u.setPassword(password); 
+            }else{
+                return Response.noContent().build();
+            }
+            return Response.ok(username).build();
         }
-
-        JsonArrayBuilder builder = Json.createArrayBuilder();
-        JsonObject obj1 = Json.createObjectBuilder()
-                .add("Status", "OK")
-                .build();
-        builder.add(obj1);
-
-        return Response.ok(builder.build()).build();
+        return Response.noContent().build();     
     }
     
     @GET
@@ -79,20 +112,55 @@ public class UserServices {
     @POST
     @Path("friendRequest")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response friendRequest(@QueryParam("User1")  String User1,
-                                  @QueryParam("User2")  String User2,
-                                  @QueryParam("Status") String Status){
+    public Response friendRequest(@QueryParam("user1")  String user1,
+                                  @QueryParam("user2")  String user2,
+                                  @QueryParam("status") String status){
         
-        return null;
+        if (user1 != null && user2 != null && status != null) {
+            List<Friends> result = null;
+            result = em.createQuery("SELECT f FROM Friends f WHERE (f.user1 = :user1 AND f.user2 = :user2) OR (f.user1 = :user2 AND f.user2 = :user1)", Friends.class)
+                .setParameter("user1", user1)
+                .setParameter("user2", user2)
+                .getResultList();
+            if(result.size() == 0){
+                Friends f = new Friends();
+                em.persist(f);
+                f.setUser1(user1);
+                f.setUser2(user2);
+                f.setStatus(status); 
+            }else{
+                return Response.noContent().build();
+            }
+            return Response.ok(user1).build();
+        }
+        return Response.noContent().build();     
     }
     
     @POST
     @Path("updatefriendRequestStatus")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updatefriendRequestStatus(@QueryParam("User1")     String User1,
-                                              @QueryParam("User2")     String User2,
+    public Response updatefriendRequestStatus(@QueryParam("user1")     String user1,
+                                              @QueryParam("user2")     String user2,
                                               @QueryParam("newStatus") String newStatus){
-         
-        return null;
+        
+        List<Friends> result = null;
+            result = em.createQuery("SELECT f FROM Friends f WHERE (f.user1 = :user1 AND f.user2 = :user2) OR (f.user1 = :user2 AND f.user2 = :user1)", Friends.class)
+                .setParameter("user1", user1)
+                .setParameter("user2", user2)
+                .getResultList();
+        if(result.size() == 1){
+            Friends friend = (Friends)result.get(0);
+            friend.setStatus(newStatus);
+            return Response.ok(friend.getStatus()).build();
+        }
+        return Response.noContent().build();  
+        
+        /*
+        em.createQuery("UPDATE Friends SET f.status = :newStatus WHERE (f.user1 = :user1 AND f.user2 = :user2) OR (f.user1 = :user2 AND f.user2 = :user1)", Friends.class)
+                .setParameter("newStatus", newStatus)
+                .setParameter("user1", user1)
+                .setParameter("user2", user2)
+                .executeUpdate();
+        */ 
     }
 }
