@@ -113,7 +113,7 @@ public class UserServices {
     @GET
     @Path("getFriends")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Friends> getFriends(@QueryParam("Username") String User1){
+    public List<Friends> getFriends(@QueryParam("username") String User1){
         List<Friends> result = null; 
         result = em.createQuery("SELECT f FROM Friends f WHERE (f.user1 = :user1) OR (f.user2 = :user1)", Friends.class)
                 .setParameter("user1", User1)
@@ -149,9 +149,9 @@ public class UserServices {
     }
     
     @POST
-    @Path("updatefriendRequestStatus")
+    @Path("updateFriendRequestStatus")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updatefriendRequestStatus(@QueryParam("user1")     String user1,
+    public Response updateFriendRequestStatus(@QueryParam("user1")     String user1,
                                               @QueryParam("user2")     String user2,
                                               @QueryParam("newStatus") String newStatus){
         

@@ -46,6 +46,26 @@ public class RoomServices {
         
         return null;
     }
+    
+    @POST
+    @Path("shareRoom")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response shareRoom(@QueryParam("sharedRoomName")  String sharedRoomName,
+                              @QueryParam("sharedRoomOwner") String sharedRoomOwner, 
+                              @QueryParam("sharedWith")      String sharedWith){
+        
+        return null;
+    }
+    
+    @POST
+    @Path("sharedRooms")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response sharedRooms(@QueryParam("sharedRoomName")  String sharedRoomName,
+                                @QueryParam("sharedRoomOwner") String sharedRoomOwner, 
+                                @QueryParam("sharedWith")      String sharedWith){
+        
+        return null;
+    }
 
     
 }
