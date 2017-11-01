@@ -21,8 +21,8 @@ public class RestConfig extends Application {
     }
     
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(com.glutenfreesoftware.shareableshoppinglist.UserServices.class);
-        resources.add(com.glutenfreesoftware.shareableshoppinglist.RoomServices.class);
         resources.add(com.glutenfreesoftware.shareableshoppinglist.ListServices.class);
+        resources.add(com.glutenfreesoftware.shareableshoppinglist.RoomServices.class);
+        resources.add(com.glutenfreesoftware.shareableshoppinglist.UserServices.class);
     }
 }
