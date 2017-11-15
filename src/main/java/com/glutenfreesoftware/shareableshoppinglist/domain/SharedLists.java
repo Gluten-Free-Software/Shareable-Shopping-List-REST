@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Sharedlists.findBySharedListOwner", query = "SELECT s FROM Sharedlists s WHERE s.sharedListOwner = :sharedListOwner")
     , @NamedQuery(name = "Sharedlists.findBySharedWith", query = "SELECT s FROM Sharedlists s WHERE s.sharedWith = :sharedWith")
     , @NamedQuery(name = "Sharedlists.findBySharedListVersion", query = "SELECT s FROM Sharedlists s WHERE s.sharedListVersion = :sharedListVersion")})
-public class Sharedlists implements Serializable {
+public class SharedLists implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -65,14 +65,14 @@ public class Sharedlists implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date sharedListVersion;
 
-    public Sharedlists() {
+    public SharedLists() {
     }
 
-    public Sharedlists(Integer sharedListID) {
+    public SharedLists(Integer sharedListID) {
         this.sharedListID = sharedListID;
     }
 
-    public Sharedlists(Integer sharedListID, String sharedListName, String sharedListOwner, String sharedWith, Date sharedListVersion) {
+    public SharedLists(Integer sharedListID, String sharedListName, String sharedListOwner, String sharedWith, Date sharedListVersion) {
         this.sharedListID = sharedListID;
         this.sharedListName = sharedListName;
         this.sharedListOwner = sharedListOwner;
@@ -130,10 +130,10 @@ public class Sharedlists implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Sharedlists)) {
+        if (!(object instanceof SharedLists)) {
             return false;
         }
-        Sharedlists other = (Sharedlists) object;
+        SharedLists other = (SharedLists) object;
         if ((this.sharedListID == null && other.sharedListID != null) || (this.sharedListID != null && !this.sharedListID.equals(other.sharedListID))) {
             return false;
         }

@@ -1,7 +1,7 @@
 package com.glutenfreesoftware.shareableshoppinglist;
 
-import com.glutenfreesoftware.shareableshoppinglist.domain.Lists;
-import com.glutenfreesoftware.shareableshoppinglist.domain.Listitems;
+//import com.glutenfreesoftware.shareableshoppinglist.domain.*;
+import com.glutenfreesoftware.shareableshoppinglist.dbtest.*;
 import java.util.Collections;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -107,8 +107,8 @@ public class ListServices {
                                 @QueryParam("listItemName")  String listItemName,
                                 @QueryParam("listItemOwner") String listItemOwner){
         if(listItemList != null && listItemName != null && listItemOwner != null){
-            List<Listitems> listItem = null; 
-            listItem = em.createQuery("SELECT l FROM Listitems l WHERE l.listItemList = :listItemList AND l.listItemName = :listItemName AND l.listItemOwner = :listItemOwner", Listitems.class)
+            List<ListItems> listItem = null; 
+            listItem = em.createQuery("SELECT l FROM Listitems l WHERE l.listItemList = :listItemList AND l.listItemName = :listItemName AND l.listItemOwner = :listItemOwner", ListItems.class)
                     .setParameter("listItemList", listItemList)
                     .setParameter("listItemName", listItemName)
                     .setParameter("listItemOwner", listItemOwner)
@@ -117,7 +117,7 @@ public class ListServices {
                 return Response.ok("List item already exists").build();
             }
             if(listItem.size() == 0){
-                Listitems newItem = new Listitems();
+                ListItems newItem = new ListItems();
                 em.persist(newItem);
                 newItem.setListItemList(listItemList);
                 newItem.setListItemName(listItemName);
@@ -131,11 +131,11 @@ public class ListServices {
     @GET
     @Path("getListItems")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Listitems> getListItems(@QueryParam("listItemList") String listItemList,
+    public List<ListItems> getListItems(@QueryParam("listItemList") String listItemList,
                                         @QueryParam("listItemOwner") String listItemOwner) {
-        List<Listitems> result = null;
+        List<ListItems> result = null;
         if (listItemList != null && listItemOwner != null) {
-            result = em.createQuery("SELECT l FROM Listitems l WHERE l.listItemList = :listItemList AND l.listItemOwner = :listItemOwner", Listitems.class)
+            result = em.createQuery("SELECT l FROM Listitems l WHERE l.listItemList = :listItemList AND l.listItemOwner = :listItemOwner", ListItems.class)
                     .setParameter("listItemList", listItemList)
                     .setParameter("listItemOwner", listItemOwner)
                     .getResultList();
@@ -150,15 +150,15 @@ public class ListServices {
                                 @QueryParam("listItemName")  String listItemName,
                                 @QueryParam("listItemOwner") String listItemOwner){
         if(listItemList != null && listItemName != null && listItemOwner != null){
-            List<Listitems> listItem = null; 
-            listItem = em.createQuery("SELECT l FROM Listitems l WHERE l.listItemList = :listItemList AND l.listItemName = :listItemName AND l.listItemOwner = :listItemOwner", Listitems.class)
+            List<ListItems> listItem = null; 
+            listItem = em.createQuery("SELECT l FROM Listitems l WHERE l.listItemList = :listItemList AND l.listItemName = :listItemName AND l.listItemOwner = :listItemOwner", ListItems.class)
                     .setParameter("listItemList", listItemList)
                     .setParameter("listItemName", listItemName)
                     .setParameter("listItemOwner", listItemOwner)
                     .getResultList();
             if(listItem.size() != 0){
                 if(listItem.size() == 1) {
-                    em.createQuery("DELETE FROM Listitems l WHERE l.listItemList = :listItemList AND l.listItemName = :listItemName AND l.listItemOwner = :listItemOwner", Listitems.class)
+                    em.createQuery("DELETE FROM Listitems l WHERE l.listItemList = :listItemList AND l.listItemName = :listItemName AND l.listItemOwner = :listItemOwner", ListItems.class)
                             .setParameter("listItemList", listItemList)
                             .setParameter("listItemName", listItemName)
                             .setParameter("listItemOwner", listItemOwner)

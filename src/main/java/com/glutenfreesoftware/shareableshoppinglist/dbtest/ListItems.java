@@ -6,31 +6,42 @@
 package com.glutenfreesoftware.shareableshoppinglist.dbtest;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.Date;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author ThomasSTodal
+ * @author Kristian
  */
 @Entity
-@Table(name = "ListItems")
+@Table(name = "listitems")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ListItems.findAll", query = "SELECT l FROM ListItems l")
-    , @NamedQuery(name = "ListItems.findByListItemID", query = "SELECT l FROM ListItems l WHERE l.listItemID = :listItemID")
-    , @NamedQuery(name = "ListItems.findByListItemList", query = "SELECT l FROM ListItems l WHERE l.listItemList = :listItemList")
-    , @NamedQuery(name = "ListItems.findByListItemName", query = "SELECT l FROM ListItems l WHERE l.listItemName = :listItemName")
-    , @NamedQuery(name = "ListItems.findByListItemOwner", query = "SELECT l FROM ListItems l WHERE l.listItemOwner = :listItemOwner")})
-public class ListItems implements Serializable
-{
+    @NamedQuery(name = "Listitems.findAll", query = "SELECT l FROM Listitems l")
+    , @NamedQuery(name = "Listitems.findByListItemID", query = "SELECT l FROM Listitems l WHERE l.listItemID = :listItemID")
+    , @NamedQuery(name = "Listitems.findByListItemList", query = "SELECT l FROM Listitems l WHERE l.listItemList = :listItemList")
+    , @NamedQuery(name = "Listitems.findByListItemName", query = "SELECT l FROM Listitems l WHERE l.listItemName = :listItemName")
+    , @NamedQuery(name = "Listitems.findByListItemOwner", query = "SELECT l FROM Listitems l WHERE l.listItemOwner = :listItemOwner")
+    , @NamedQuery(name = "Listitems.findByListItemVersion", query = "SELECT l FROM Listitems l WHERE l.listItemVersion = :listItemVersion")})
+public class ListItems implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "ListItemID")
     private Integer listItemID;
     @Basic(optional = false)
@@ -48,75 +59,76 @@ public class ListItems implements Serializable
     @Size(min = 1, max = 100)
     @Column(name = "ListItemOwner")
     private String listItemOwner;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "ListItemVersion")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date listItemVersion;
 
-    public ListItems()
-    {
+    public ListItems() {
     }
 
-    public ListItems(Integer listItemID)
-    {
+    public ListItems(Integer listItemID) {
         this.listItemID = listItemID;
     }
 
-    public ListItems(Integer listItemID, String listItemList, String listItemName, String listItemOwner)
-    {
+    public ListItems(Integer listItemID, String listItemList, String listItemName, String listItemOwner, Date listItemVersion) {
         this.listItemID = listItemID;
         this.listItemList = listItemList;
         this.listItemName = listItemName;
         this.listItemOwner = listItemOwner;
+        this.listItemVersion = listItemVersion;
     }
 
-    public Integer getListItemID()
-    {
+    public Integer getListItemID() {
         return listItemID;
     }
 
-    public void setListItemID(Integer listItemID)
-    {
+    public void setListItemID(Integer listItemID) {
         this.listItemID = listItemID;
     }
 
-    public String getListItemList()
-    {
+    public String getListItemList() {
         return listItemList;
     }
 
-    public void setListItemList(String listItemList)
-    {
+    public void setListItemList(String listItemList) {
         this.listItemList = listItemList;
     }
 
-    public String getListItemName()
-    {
+    public String getListItemName() {
         return listItemName;
     }
 
-    public void setListItemName(String listItemName)
-    {
+    public void setListItemName(String listItemName) {
         this.listItemName = listItemName;
     }
 
-    public String getListItemOwner()
-    {
+    public String getListItemOwner() {
         return listItemOwner;
     }
 
-    public void setListItemOwner(String listItemOwner)
-    {
+    public void setListItemOwner(String listItemOwner) {
         this.listItemOwner = listItemOwner;
     }
 
+    public Date getListItemVersion() {
+        return listItemVersion;
+    }
+
+    public void setListItemVersion(Date listItemVersion) {
+        this.listItemVersion = listItemVersion;
+    }
+
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         int hash = 0;
         hash += (listItemID != null ? listItemID.hashCode() : 0);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object)
-    {
+    public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof ListItems)) {
             return false;
@@ -129,9 +141,8 @@ public class ListItems implements Serializable
     }
 
     @Override
-    public String toString()
-    {
-        return "com.glutenfreesoftware.shareableshoppinglist.dbtest.ListItems[ listItemID=" + listItemID + " ]";
+    public String toString() {
+        return "com.glutenfreesoftware.shareableshoppinglist.dbtest.Listitems[ listItemID=" + listItemID + " ]";
     }
     
 }

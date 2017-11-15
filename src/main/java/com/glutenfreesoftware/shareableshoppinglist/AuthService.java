@@ -1,5 +1,7 @@
 package com.glutenfreesoftware.shareableshoppinglist;
 
+//import com.glutenfreesoftware.shareableshoppinglist.domain.*;
+import com.glutenfreesoftware.shareableshoppinglist.dbtest.*;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -20,8 +22,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
-import com.glutenfreesoftware.shareableshoppinglist.domain.SecureUser;
-import com.glutenfreesoftware.shareableshoppinglist.domain.UserGroup;
 
 /**
  *

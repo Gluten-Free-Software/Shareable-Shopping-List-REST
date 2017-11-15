@@ -6,31 +6,42 @@
 package com.glutenfreesoftware.shareableshoppinglist.dbtest;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.Date;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author ThomasSTodal
+ * @author Kristian
  */
 @Entity
-@Table(name = "SharedLists")
+@Table(name = "sharedlists")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "SharedLists.findAll", query = "SELECT s FROM SharedLists s")
-    , @NamedQuery(name = "SharedLists.findBySharedListID", query = "SELECT s FROM SharedLists s WHERE s.sharedListID = :sharedListID")
-    , @NamedQuery(name = "SharedLists.findBySharedListName", query = "SELECT s FROM SharedLists s WHERE s.sharedListName = :sharedListName")
-    , @NamedQuery(name = "SharedLists.findBySharedListOwner", query = "SELECT s FROM SharedLists s WHERE s.sharedListOwner = :sharedListOwner")
-    , @NamedQuery(name = "SharedLists.findBySharedWith", query = "SELECT s FROM SharedLists s WHERE s.sharedWith = :sharedWith")})
-public class SharedLists implements Serializable
-{
+    @NamedQuery(name = "Sharedlists.findAll", query = "SELECT s FROM Sharedlists s")
+    , @NamedQuery(name = "Sharedlists.findBySharedListID", query = "SELECT s FROM Sharedlists s WHERE s.sharedListID = :sharedListID")
+    , @NamedQuery(name = "Sharedlists.findBySharedListName", query = "SELECT s FROM Sharedlists s WHERE s.sharedListName = :sharedListName")
+    , @NamedQuery(name = "Sharedlists.findBySharedListOwner", query = "SELECT s FROM Sharedlists s WHERE s.sharedListOwner = :sharedListOwner")
+    , @NamedQuery(name = "Sharedlists.findBySharedWith", query = "SELECT s FROM Sharedlists s WHERE s.sharedWith = :sharedWith")
+    , @NamedQuery(name = "Sharedlists.findBySharedListVersion", query = "SELECT s FROM Sharedlists s WHERE s.sharedListVersion = :sharedListVersion")})
+public class SharedLists implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "SharedListID")
     private Integer sharedListID;
     @Basic(optional = false)
@@ -48,75 +59,76 @@ public class SharedLists implements Serializable
     @Size(min = 1, max = 100)
     @Column(name = "SharedWith")
     private String sharedWith;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "SharedListVersion")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date sharedListVersion;
 
-    public SharedLists()
-    {
+    public SharedLists() {
     }
 
-    public SharedLists(Integer sharedListID)
-    {
+    public SharedLists(Integer sharedListID) {
         this.sharedListID = sharedListID;
     }
 
-    public SharedLists(Integer sharedListID, String sharedListName, String sharedListOwner, String sharedWith)
-    {
+    public SharedLists(Integer sharedListID, String sharedListName, String sharedListOwner, String sharedWith, Date sharedListVersion) {
         this.sharedListID = sharedListID;
         this.sharedListName = sharedListName;
         this.sharedListOwner = sharedListOwner;
         this.sharedWith = sharedWith;
+        this.sharedListVersion = sharedListVersion;
     }
 
-    public Integer getSharedListID()
-    {
+    public Integer getSharedListID() {
         return sharedListID;
     }
 
-    public void setSharedListID(Integer sharedListID)
-    {
+    public void setSharedListID(Integer sharedListID) {
         this.sharedListID = sharedListID;
     }
 
-    public String getSharedListName()
-    {
+    public String getSharedListName() {
         return sharedListName;
     }
 
-    public void setSharedListName(String sharedListName)
-    {
+    public void setSharedListName(String sharedListName) {
         this.sharedListName = sharedListName;
     }
 
-    public String getSharedListOwner()
-    {
+    public String getSharedListOwner() {
         return sharedListOwner;
     }
 
-    public void setSharedListOwner(String sharedListOwner)
-    {
+    public void setSharedListOwner(String sharedListOwner) {
         this.sharedListOwner = sharedListOwner;
     }
 
-    public String getSharedWith()
-    {
+    public String getSharedWith() {
         return sharedWith;
     }
 
-    public void setSharedWith(String sharedWith)
-    {
+    public void setSharedWith(String sharedWith) {
         this.sharedWith = sharedWith;
     }
 
+    public Date getSharedListVersion() {
+        return sharedListVersion;
+    }
+
+    public void setSharedListVersion(Date sharedListVersion) {
+        this.sharedListVersion = sharedListVersion;
+    }
+
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         int hash = 0;
         hash += (sharedListID != null ? sharedListID.hashCode() : 0);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object)
-    {
+    public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof SharedLists)) {
             return false;
@@ -129,9 +141,8 @@ public class SharedLists implements Serializable
     }
 
     @Override
-    public String toString()
-    {
-        return "com.glutenfreesoftware.shareableshoppinglist.dbtest.SharedLists[ sharedListID=" + sharedListID + " ]";
+    public String toString() {
+        return "com.glutenfreesoftware.shareableshoppinglist.dbtest.Sharedlists[ sharedListID=" + sharedListID + " ]";
     }
     
 }
