@@ -70,6 +70,34 @@ public class ListServices {
     }
     
     @POST
+    @Path("removeList2")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response removeList2(@QueryParam("listName")  String listName,
+                                @QueryParam("listOwner") String listOwner){
+        if(listName != null && listOwner != null){
+            List<Lists> list = null;
+            list = em.createQuery("SELECT l FROM Lists l WHERE l.listName = :listName AND l.listOwner = :listOwner", Lists.class)
+                    .setParameter("listName", listName)
+                    .setParameter("listOwner", listOwner)
+                    .getResultList();
+            if (list.size() != 0) {
+                if (list.size() == 1) {
+                    em.createQuery("DELETE FROM Lists l WHERE l.listName = :listName AND l.listOwner = :listOwner", Lists.class)
+                            .setParameter("listName", listName)
+                            .setParameter("listOwner", listOwner)
+                            .executeUpdate();
+                    return Response.ok("List removed").build();
+                }
+                return Response.noContent().build();
+            }
+            if (list.size() == 0) {
+                return Response.ok("No list found by that name: " + listName).build();
+            }
+        }
+        return Response.noContent().build();
+    }
+    
+    @POST
     @Path("removeList")
     @Produces(MediaType.APPLICATION_JSON)
     public Response removeList(@QueryParam("listRoom")  String listRoom,

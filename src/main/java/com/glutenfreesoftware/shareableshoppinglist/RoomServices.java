@@ -32,9 +32,10 @@ public class RoomServices {
     @GET
     @Path("getRooms")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Rooms> getRooms(){
+    public List<Rooms> getRooms(@QueryParam("roomOwner") String roomOwner){
         List<Rooms> result = null; 
-        result = em.createQuery("SELECT r FROM Rooms r", Rooms.class)
+        result = em.createQuery("SELECT r FROM Rooms r WHERE r.roomOwner = :roomOwner", Rooms.class)
+                .setParameter("roomOwner", roomOwner)
                 .getResultList();
         return result != null ? result : Collections.EMPTY_LIST;
     } 
