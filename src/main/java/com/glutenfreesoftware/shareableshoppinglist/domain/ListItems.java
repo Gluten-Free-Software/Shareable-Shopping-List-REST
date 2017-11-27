@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Listitems.findByListItemName", query = "SELECT l FROM Listitems l WHERE l.listItemName = :listItemName")
     , @NamedQuery(name = "Listitems.findByListItemOwner", query = "SELECT l FROM Listitems l WHERE l.listItemOwner = :listItemOwner")
     , @NamedQuery(name = "Listitems.findByListItemVersion", query = "SELECT l FROM Listitems l WHERE l.listItemVersion = :listItemVersion")})
-public class Listitems implements Serializable {
+public class ListItems implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -65,14 +65,14 @@ public class Listitems implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date listItemVersion;
 
-    public Listitems() {
+    public ListItems() {
     }
 
-    public Listitems(Integer listItemID) {
+    public ListItems(Integer listItemID) {
         this.listItemID = listItemID;
     }
 
-    public Listitems(Integer listItemID, String listItemList, String listItemName, String listItemOwner, Date listItemVersion) {
+    public ListItems(Integer listItemID, String listItemList, String listItemName, String listItemOwner, Date listItemVersion) {
         this.listItemID = listItemID;
         this.listItemList = listItemList;
         this.listItemName = listItemName;
@@ -130,10 +130,10 @@ public class Listitems implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Listitems)) {
+        if (!(object instanceof ListItems)) {
             return false;
         }
-        Listitems other = (Listitems) object;
+        ListItems other = (ListItems) object;
         if ((this.listItemID == null && other.listItemID != null) || (this.listItemID != null && !this.listItemID.equals(other.listItemID))) {
             return false;
         }

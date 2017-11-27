@@ -1,8 +1,7 @@
 package com.glutenfreesoftware.shareableshoppinglist;
 
-import com.glutenfreesoftware.shareableshoppinglist.domain.Lists;
-import com.glutenfreesoftware.shareableshoppinglist.domain.Rooms;
-import com.glutenfreesoftware.shareableshoppinglist.domain.Sharedrooms;
+//import com.glutenfreesoftware.shareableshoppinglist.domain.*;
+import com.glutenfreesoftware.shareableshoppinglist.dbtest.*;
 import java.util.Collections;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -100,8 +99,8 @@ public class RoomServices {
                               @QueryParam("sharedRoomOwner") String sharedRoomOwner, 
                               @QueryParam("sharedWith")      String sharedWith){
         if(sharedRoomName != null && sharedRoomOwner != null && sharedWith != null){
-            List<Sharedrooms> sharedRoom = null;
-            sharedRoom = em.createQuery("Select s FROM Sharedrooms s WHERE s.sharedRoomName = :sharedRoomName AND s.sharedRoomOwner = :sharedRoomOwner AND s.sharedWith = :sharedWith", Sharedrooms.class)
+            List<SharedRooms> sharedRoom = null;
+            sharedRoom = em.createQuery("Select s FROM Sharedrooms s WHERE s.sharedRoomName = :sharedRoomName AND s.sharedRoomOwner = :sharedRoomOwner AND s.sharedWith = :sharedWith", SharedRooms.class)
                     .setParameter("sharedRoomName", sharedRoomName)
                     .setParameter("sharedRoomOwner", sharedRoomOwner)
                     .setParameter("sharedWith", sharedWith)
@@ -110,7 +109,7 @@ public class RoomServices {
                 return Response.ok("Room have already been shared with this user").build();
             }
             if(sharedRoom.size() == 0){
-                Sharedrooms newShared = new Sharedrooms();
+                SharedRooms newShared = new SharedRooms();
                 em.persist(newShared);
                 newShared.setSharedRoomName(sharedRoomName);
                 newShared.setSharedRoomOwner(sharedRoomOwner);
@@ -124,11 +123,11 @@ public class RoomServices {
     @GET
     @Path("sharedRooms")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Sharedrooms> sharedRooms(@QueryParam("sharedWith") String sharedWith){
-        List<Sharedrooms> result = null; 
+    public List<SharedRooms> sharedRooms(@QueryParam("sharedWith") String sharedWith){
+        List<SharedRooms> result = null; 
         
         if(sharedWith != null){
-            result = em.createQuery("SELECT s FROM Sharedrooms s WHERE s.sharedWith = :sharedWith", Sharedrooms.class)
+            result = em.createQuery("SELECT s FROM Sharedrooms s WHERE s.sharedWith = :sharedWith", SharedRooms.class)
                 .setParameter("sharedWith", sharedWith)
                 .getResultList();
         }
