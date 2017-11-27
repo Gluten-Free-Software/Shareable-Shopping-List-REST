@@ -44,7 +44,7 @@ public class AuthService
         request.getSession(true);
         return Response.ok(request.getUserPrincipal().getName()).build();
     }
-    
+    /*
     @GET @Path("create")
     //@RolesAllowed(UserGroup.ADMIN)
     public SecureUser createUser(@QueryParam("uid")String uid,
@@ -65,4 +65,5 @@ public class AuthService
         }
         return result;
     }
+*/
 }
